@@ -4,7 +4,7 @@
 //1/20/23
 
 //constants
-const int button = 2;                         //button pin
+const int butt = 2;                         //button pin
 const int output = 3;                         //output transistor on pin 3
 const int outputLed = 6;                      //red output LED
 const int clockLed =  5;                      //green clock led
@@ -14,15 +14,22 @@ long btnDnTime;                               //time button was pressed down
 long btnUpTime;                               //time button was released
 boolean ignoreUp = false;                     //weather ignore button release because press + hold was triggered
 long debounce = 20;                           //debounce time no flicker
+unsigned long loopspot = 0;                   //loops pot read variable
+unsigned long speedpot =0;                    //speed pot read variable
+unsigned long dutypot = 0;                    //duty pot read variable
+unsigned long frequency = 0;                  //frequncy read variable for master clock
+unsigned long offDuration = 0;                //variable to calculate duty cycle off time length
+unsigned long previousTime = 0;
 
 // Variables
 int buttonVal = 0;                            //variable to store current state of the button
 int buttonLast = 0;                           //variable to store last state of button
 int clockState = 0;                           //variable to store current clock status
-int buttonState = 0;
+int buttonState = 0;                          //varable to store current state of button
+bool isOn = true;                             //variable to store state of master duty clock cycle
 
 void setup() {
-  pinMode(button, INPUT_PULLUP);               //initialize the pushbutton pin as an input with a internal pullup resistor so buttons can pull it down and trigger it without extra resistors on the board
+  pinMode(butt, INPUT_PULLUP);                 //initialize the pushbutton pin as an input with a internal pullup resistor so buttons can pull it down and trigger it without extra resistors on the board
   pinMode(output, OUTPUT);                     //initialize output transistor
   pinMode(outputLed, OUTPUT);                  //initialize output LED as output
   digitalWrite(outputLed, 0);                  //initialize output LED as off
@@ -31,82 +38,92 @@ void setup() {
   pinMode(clockPin, INPUT);                    //initialize clock pin as input
 }
 
-void shortpress() {                            //button was briefly momentarily pressed
-  digitalWrite(outputLed, 1);                  //turn on LED green indicating button press.. for duration of cycle
-  digitalWrite(clockLed, 1);                   //turn on the other color LED
-  int loopspot = analogRead(A1);               //create variable int named loopspot and read into it from analog input A1
-  loopspot = map(loopspot, 0, 1023, 100, 1);   //scale it to use it with the loopspot (value between 1 and 100)
-  for (int b = 0; b < loopspot; b++) {         //run for loop for loopspot amount of times
-    Serial.println(loopspot);                  //debug loopspot variable to serial monitor
-    int speedpot = analogRead(A0);             //create variable int named speedpot and read analog pot on A0 into it
-    speedpot = map(speedpot, 0, 1023, 5, 1000);// scale it to use it with the loopspot (value between 5 and 1000)
-    digitalWrite(outputLed, 0);                //turn on output led
-    digitalWrite(output, 1);                   //turn on output
-    delay(speedpot);                           //wait for length of speed pot variable
-    digitalWrite(outputLed, 1);                //turn off the output LED
-    digitalWrite(output, 0);                   //turn off the output
-    delay(speedpot);                           //wait for length of speed pot variable
-  }
-  digitalWrite(outputLed, 0);                  //keep red output led off
-  digitalWrite(output, 0);                     //turn off the output
-  digitalWrite(clockLed, 0);                   //keep the red clock output led off
+//function for handling short presses of the button (triggering a single centipede)
+void shortpress() {                            //button was momentarily pressed
+ digitalWrite(outputLed, 1);                   //turn on LED green indicating button press.
+ digitalWrite(clockLed, 1);                    //turn on the other color LED
+ loopspot = map(analogRead(A1), 0, 1023, 100, 1);//read and map pot on A1 into loopspot variable
+ for (int b = 0; b < loopspot; b++) {          //run for loop for loopspot amount of times
+     speedpot = map(analogRead(A0), 0, 1023, 5, 1000);//read and scale Analog 0 into speedpot
+     digitalWrite(outputLed, 0);               //turn on output led
+     digitalWrite(output, 1);                  //turn on output
+     delay(speedpot);                          //wait for length of speed pot variable
+     digitalWrite(outputLed, 1);               //turn off the output LED
+     digitalWrite(output, 0);                  //turn off the output
+     delay(speedpot);                          //wait for length of speed pot variable
+     }
+ digitalWrite(outputLed, 0);                  //keep red output led off
+ digitalWrite(output, 0);                     //turn off the output
+ digitalWrite(clockLed, 0);                   //keep the red clock output led off
 }
 
 void loop() {
- buttonVal = digitalRead(button);             //read the pushbutton input pin:
+ buttonVal = digitalRead(butt);               //read the pushbutton input pin:
  clockState = digitalRead(clockPin);          //read the clock input pin
 
-  if (buttonVal == LOW && buttonLast == HIGH && (millis() - btnUpTime) > long(debounce)) { //test for button press and store down time
-     btnDnTime = millis();
-     }
-  
-  if (buttonVal == HIGH && buttonLast == LOW && (millis() - btnDnTime) > long(debounce)) {  //test for button release and store up time
-     if (ignoreUp == false) {
-        shortpress();
-        } else {
-        ignoreUp = false;
-        btnDnTime = millis();
-        }
-     }
-  
-  if (buttonVal == LOW && (millis() - btnDnTime) > long(holdTime)) {                       //test for button held longer than hold time
-     buttonState = !buttonState;                                                           //invert state of button variable, trigger master clock routine
-     ignoreUp = true;
-     btnDnTime = millis();
-     }
-  
-  if (!clockState) {                             //if clock input pin goes low (it's held high)
-    digitalWrite(outputLed, 1);                 //turn on green led for duration of cycle indicating trigger press
-    digitalWrite(clockLed, 1);                  //Turn on red LED
-    int loopspot = analogRead(A1);              //create variable int named loopspot and read analog pot on A1 into it
-    loopspot = map(loopspot, 0, 1023, 100, 1);  // scale it to use it with the loopspot (value between 1 and 100)
-    for (int i = 0; i < loopspot; i++) {        //run for loop for loopspot amount of times
-      int speedpot = analogRead(A0);             //create variable int named speedpot and read analog pot on A0 into it
-      speedpot = map(speedpot, 0, 1023, 5, 1000);// scale it to use it with the loopspot (value between 15 and 100
-      digitalWrite(clockLed, 0);                 //turn on red clock output LED
-      digitalWrite(output, 1);                   //turn on output
-      delay(speedpot);                           //wait for length of speed pot variable
-      digitalWrite(clockLed, 1);                 //turn off red clock output led
-      digitalWrite(output, 0);                   //turn off output
-      delay(speedpot);                           //wait for length of speed pot variable
-    }
-  } else {                                     //if the button is high
-    digitalWrite(clockLed, 0);                 //keep the red clock output led off
-    digitalWrite(output, 0);                   //keep the output off
-    digitalWrite(outputLed, 0);                //keep green output led off
-  }
-
-  if (buttonState == 1){
-     int speedpot = analogRead(A0);             //create variable int named speedpot and read analog pot on A0 into it
-     speedpot = map(speedpot, 0, 1023, 5, 1000);// scale it to use it with the loopspot (value between 15 and 100
-     digitalWrite (outputLed, 1);
-     digitalWrite (output, 1);
-     delay(speedpot);                           //wait for length of speed pot variable
-     digitalWrite(outputLed, 0);                 //turn off output led
-     digitalWrite(output, 0);                   //turn off output
-     delay(speedpot);
+ 
+//button handler routine
+if (buttonVal == LOW && buttonLast == HIGH && (millis() - btnUpTime) > long(debounce)) { //test for button press and store down time
+   btnDnTime = millis();
+}  
+if (buttonVal == HIGH && buttonLast == LOW && (millis() - btnDnTime) > long(debounce)) {  //test for button release and store up time
+   if (ignoreUp == false) {
+      shortpress();
+   } else {
+   ignoreUp = false;
+   btnDnTime = millis();
    }
+}  
+if (buttonVal == LOW && (millis() - btnDnTime) > long(holdTime)) {                       //test for button held longer than hold time
+   buttonState = !buttonState;                                                           //invert state of button variable, trigger master clock routine
+   ignoreUp = true;
+   btnDnTime = millis();
+}
 
+//clock input signal handler routine     
+while (!clockState){                                     // while the clock input that is held high goes low..  (trigger input has received a signal)
+      clockState = digitalRead(clockPin);                //read the clock input pin
+      if (clockState) {                                  //if clock input pin goes HIGH (clock has gone HIGH again)
+         digitalWrite(outputLed, 1);                     //turn on green led for duration of cycle indicating trigger press
+         digitalWrite(clockLed, 1);                      //Turn on red LED
+         loopspot = map(analogRead(A1), 0, 1023, 100, 1);//read and map pot on A1 into loopspot variable
+         for (int i = 0; i < loopspot; i++) {            //run for loop for loopspot amount of times
+             speedpot = map(analogRead(A0), 0, 1023, 5, 1000);//read and map pot on A into speed pot variable    
+             digitalWrite(clockLed, 0);                  //turn on red clock output LED
+             digitalWrite(output, 1);                    //turn on output
+             delay(speedpot);                            //wait for length of speed pot variable
+             digitalWrite(clockLed, 1);                  //turn off red clock output led
+             digitalWrite(output, 0);                    //turn off output
+             delay(speedpot);                            //wait for length of speed pot variable
+             }
+      } else {                                           //if the button is high
+      digitalWrite(clockLed, 0);                         //keep the red clock output led off
+      digitalWrite(output, 0);                           //keep the output off
+      digitalWrite(outputLed, 0);                        //keep green output led off
+      }
+}
+  
+if (buttonState == 1){                                    //this is the master clock loop routine
+   frequency = map(analogRead(A0), 0, 1023, 35, 2000);    //read and map pot on A into speed pot variable 1000 is max delay time(slow) 20 is minimum (fast)
+   dutypot = map(analogRead(A1), 0, 1023,10, frequency);  //read and map pot on A into speed pot variable
+   offDuration = frequency - dutypot;                     //calculation to get off time from duty cycle on time              
+
+// calculate current time since program started (in milliseconds)
+  unsigned long currentTime = millis();
+
+  // check if it's time to change the wave and LED signals
+if (isOn && (currentTime - previousTime >= dutypot)) {   
+   digitalWrite (outputLed, 1);
+   digitalWrite (output, 1);
+   isOn = false;
+   previousTime = currentTime;
+   }
+else if (!isOn && (currentTime - previousTime >= offDuration)) {
+   digitalWrite(outputLed, 0);                           //turn off output led
+   digitalWrite(output, 0);                              //turn off output
+   isOn = true;
+   previousTime = currentTime;
+   }
+}
  buttonLast = buttonVal;
-   
 }
