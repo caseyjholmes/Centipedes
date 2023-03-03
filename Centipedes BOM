@@ -1,0 +1,30 @@
+C1,C2,C8     22uf                    CPOL-USC                        PANASONIC_C              POLARIZED CAPACITOR, American symbol                                                                                                 
+C3,C7,C10,C13,C14     100n           C-USC0603K                      C0603K                   CAPACITOR, American symbol                                                                                                          
+C4     470n                          C-USC0603K                      C0603K                   CAPACITOR, American symbol                                                                                                            
+C5,C6    10n                         C-USC0603K                      C0603K                   CAPACITOR, American symbol                                                                                                              
+C11,C12    18p                       C-USC0603K                      C0603K                   CAPACITOR, American symbol    
+R2,R3,R4,R5,R6,R7,R8,R9,R10,R13 100k R-US_R0603                      R0603                    RESISTOR, American symbol                                                                                                                  
+R11    1M                            R-US_R0603                      R0603                    RESISTOR, American symbol                                                                                                                  
+R1,R12,R14,R16        10k            R-US_R0603                      R0603                    RESISTOR, American symbol                                                                                                                  
+R15    1k                            R-US_R0603                      R0603                    RESISTOR, American symbol                                                                                                                                                                                                                                
+R17,R18    200r                      R-US_R0603                      R0603                    RESISTOR, American symbol      
+R19    DNP                           DO NOT PLACE                    not populated. leave this empty                                                                                                       
+D1     MB1S                          MB1S                            SOIC-4                   Bridge Rectifier                                                                                                                             
+D3     LED-DUALCOLOR3MM-THROUGH-HOLE WEP115VEGW                      LED-DUALCOLOR-3MM        FLAT SPOT DOWN!!!!!!!                                                                                                                                               
+IC1    LM40405.0V                    LM40405.0V                      5v Vref shunt thingy     PRECISION MICROPOWER SHUNT VOLTAGE REFERENCE                                                      
+IC2    REG1117 5.0V                  REG1117                         SOT223                   800mA and 1A Low Dropout (LDO) Positive Regulator                                        
+IC3    MCP6002                       MCP6002_                        SO08                     Generic Dual Op Amp                                                                                                                           
+IC4    ATMEGA328P                    MEGA238P                        TQFP32                   MICROCONTROLLER 
+T1,T2     3904                       MMBT3904LT1-NPN-SOT23           SOT23-BEC                NPN Transistror 
+L1     2.2k bead                     FERRITE_BEAD-0603               0603                     Ferrite Bead (blocks, cores, rings, chokes, etc.)                                                 
+Q1     20MHZ                         CRYSTAL                         HC49UP                   CRYSTAL                                                                                       
+J1     2x5 ten pin header            MA05-2                          MA05-2                   PIN HEADER                                                                                                                                                                                                                 
+J15    ICSP 2 x 3 header             MA03-2                          MA03-2                   PIN HEADER                                                                                                                                                                                                                                                                                                                                                     
+S1     PTH momentary 6mm             MOMENTARY-SWITCH-SPST-PTH-6.0MM TACTILE_SWITCH_PTH_6.0MM Momentary Switch (Pushbutton) - SPST                                                                                     
+SPEED,LENGTH  10K B                  9MM_SNAP-IN_POT_                9MM_SNAP-IN_POT          9mm vertical snap-in pot, Alpha / Panasonic style 
+J2,J2,J3,J4                          THONKICONN                      WQP-PJ301M-12_JACK       3.5mm socket for Eurorack modular synths   
+
+V2 edition - CJH 1/23/23                                                                                          
+Notes: R19 was a pullup resistor and is not needed. Do not populate.
+Otherwise, buld is straight forward.                                                                                                                              
+           
