@@ -1,6 +1,6 @@
 //CASEY HOLMES
 //HOLMES MODULAR
-//CENTIPEDES CODE REV2.1 with updated EASTER EGGS!
+//CENTIPEDES CODE REV2.1 with updated EASTER EGG!
 //1/20/23
 
 //constants
@@ -81,9 +81,9 @@ if (buttonVal == LOW && (millis() - btnDnTime) > long(holdTime)) {//test for but
 }
 
 //clock input signal handler routine     
-while (!clockState){                                           // while the clock input that is held high goes low..  (trigger input has received a signal)
+while (clockState){                                           // while the clock input that is held high goes HIGH..  (trigger input has received a signal)
       clockState = digitalRead(clockPin);                      //read the clock input pin
-      if (clockState) {                                        //if clock input pin goes HIGH (clock has gone HIGH again)
+      if (!clockState) {                                       //if clock input pin goes LOW (clock has gone LOW again)
          digitalWrite(outputLed, 1);                           //turn on green led for duration of cycle indicating trigger press
          digitalWrite(clockLed, 1);                            //Turn on red LED
          loopspot = map(analogRead(A1), 0, 1023, 100, 1);      //read and map pot on A1 into loopspot variable
