@@ -8,3 +8,10 @@ Otherwise, this is a straight forward Eurorack format synthesizer module build.
 
 Enjoy! 
 -Casey
+
+5-22-2023 update
+Centipedes will now be taking on four individual modes that work with the posted PCB. I will be posting four software routines for each. 
+The first of which is a new Centipedes V3 Firmware. It will be uploaded today 5-22-23
+
+Stay tuned for the three additonal firmware modes. As well as new panels to match the firmware modes.
+
