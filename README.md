@@ -13,5 +13,7 @@ Enjoy!
 Centipedes will now be taking on four individual modes that work with the posted PCB. I will be posting four software routines for each. 
 The first of which is a new Centipedes V3 Firmware. It will be uploaded today 5-22-23
 
+There is now one mode for each software file set. No more easter eggs or hidden features. Each mode is stand alone face value. No menus or bugs.
+
 Stay tuned for the three additonal firmware modes. As well as new panels to match the firmware modes.
 
