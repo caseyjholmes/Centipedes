@@ -1,5 +1,5 @@
 # Centipedes
-Quad-purpose Manual and CV controlled 1-100 Burst Generator, Voltage Controlled Master Clock, Gate Crasher and Clock Mult/Divide Eurorack Module with PSI EITHER WAY power in 4HP.
+Quad-purpose Manual and CV controlled 1-100 Burst Generator, Voltage Controlled Master Clock, Voltage Controlled Gate Crasher and Voltage Controlled Clock Mult/Divide Eurorack Module with PSI EITHER WAY power in 4HP.
 
 The module utilizes a ATMEGA328P micrcontroller. The firmware is included before and after compile. You can program with arduino or AVRISPMKII or ebay clone.
 
