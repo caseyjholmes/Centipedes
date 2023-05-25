@@ -16,7 +16,7 @@ There is now one mode for each software file set. No more easter eggs or hidden 
 
 Stay tuned for the three additonal firmware modes. As well as new panels to match the firmware modes.
 
-The first software mode is posted above on this page. 
+The first software mode is posted above on this page.                                                                             
 The second, "Centipedes Voltage Controlled Matser Clock", is available here:
 https://github.com/caseyjholmes/Centipedes_Master_Clock
 
