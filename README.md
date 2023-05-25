@@ -24,3 +24,6 @@ https://github.com/caseyjholmes/Centipedes_Master_Clock
 The third mode, "Centipedes Gate Crasher", is SOON to be available here:                                                                   
 https://github.com/caseyjholmes/Centipedes_Gate_Crasher
 
+The fourth mode, Centipedes Clock Divider Multipleir is SOON to be available here:                                                             
+https://github.com/caseyjholmes/Centipedes_Clock_Mult_Div
+
