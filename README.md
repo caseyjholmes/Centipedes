@@ -20,3 +20,6 @@ The first software mode is posted above on this page.
 The second, "Centipedes Voltage Controlled Matser Clock", is available here:
 https://github.com/caseyjholmes/Centipedes_Master_Clock
 
+The third mode, "Centipedes Gate Crasher", is SOON to be available here:
+https://github.com/caseyjholmes/Centipedes_Gate_Crasher
+
