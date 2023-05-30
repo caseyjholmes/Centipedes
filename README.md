@@ -15,13 +15,13 @@ The first of which is a new Centipedes V3 Firmware. It will be uploaded today 5-
 
 There is now one mode for each software file set. No more easter eggs or hidden features. Each mode is stand alone face value. No menus or bugs.
 
-Stay tuned for new panels to match the firmware modes.
+Panels will be provided for each alternate software mode  
 
 The first and updated software mode is NOW posted above on this page.                                                                             
-The second, "Centipedes Voltage Controlled Matser Clock", is NOW available here:                                                                     
+The second, "Centipedes Voltage Controlled Matser Clock" and its associated front panel, is NOW available here:                                                                     
 https://github.com/caseyjholmes/Centipedes_Master_Clock
 
-The third mode, "Centipedes Voltage Controled Gate Crasher", is NOW available here:                                                                   
+The third mode, "Centipedes Voltage Controled Gate Crasher" and its associated alternate front panel is NOW available here:                                                                   
 https://github.com/caseyjholmes/Centipedes_Gate_Crasher
 
 The fourth mode, "Centipedes Voltage Controlled Clock Divider Multiplier" is SOON to be available here:                                                             
